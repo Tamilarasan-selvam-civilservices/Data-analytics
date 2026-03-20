@@ -53,7 +53,6 @@ The dataset includes multiple features to evaluate intern performance from diffe
     - Monthly compensation
     - Can be analyzed against performance
 
----
 
 ### Derived Features (Created During Preprocessing)
 
@@ -65,7 +64,7 @@ The dataset includes multiple features to evaluate intern performance from diffe
    - Internship duration in days
    - Useful for time-based analysis
 
----
+
 
 ### Why These Features?
 
