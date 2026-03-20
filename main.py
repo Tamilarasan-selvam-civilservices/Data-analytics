@@ -77,10 +77,10 @@ print(df.head())
 df.to_csv("cleaned_intern_data.csv", index=False)
 print("\nCleaned dataset saved")
 
-# -------------------------------
-# LOAD STEP (Saving to Excel)
-# -------------------------------
 
+# LOAD STEP (Saving to Excel)
+
+# IT RESONATES THE ETL PIPELINES 
 # saving raw data to excel
 pd.read_csv("intern_performance.csv").to_excel("intern_performance.xlsx", index=False)
 
