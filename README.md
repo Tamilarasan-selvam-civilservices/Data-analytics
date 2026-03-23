@@ -169,3 +169,34 @@ These features help to:
 ---
 
 # 📁 Project Structure
+intern-performance-analytics/
+│
+├── main.py
+│ # Sprint 1: Data generation, cleaning, validation, and ETL process
+│
+├── eda.py
+│ # Sprint 2: Exploratory Data Analysis (statistics, trends, visualizations, insights)
+│
+├── intern_performance.csv
+│ # Raw dataset (generated data)
+│
+├── cleaned_intern_data.csv
+│ # Cleaned and processed dataset
+│
+├── intern_performance.xlsx
+│ # Raw dataset in Excel format (for reporting)
+│
+├── cleaned_intern_data.xlsx
+│ # Cleaned dataset in Excel format
+│
+├── plots/
+│ # Contains all EDA visualizations
+│ ├── performance_distribution.png
+│ ├── department_performance.png
+│ ├── hours_vs_performance.png
+│ ├── completion_rate_distribution.png
+│ └── boxplot_department.png
+│
+├── README.md
+│ # Complete project documentation
+
