@@ -1,16 +1,13 @@
 import pandas as pd
 import numpy as np
 
+# -------------------------------
+# STEP 1: DATA GENERATION
+# -------------------------------
 
-
-# Data Preprocessing Steps
-
-
-# Step 1: Created a sample dataset of interns using random values
-# (since no real dataset was given, this is just for practice/analysis)
+print("\n--- Generating Dataset ---\n")
 
 np.random.seed(1)
-
 n = 100
 
 df = pd.DataFrame({
@@ -30,61 +27,99 @@ df = pd.DataFrame({
     "Stipend": np.random.randint(8000, 20000, n)
 })
 
-# saving the dataset to csv file
 df.to_csv("intern_performance.csv", index=False)
-print("Dataset created\n")
+print("Raw dataset created\n")
 
+# -------------------------------
+# STEP 2: LOAD DATA
+# -------------------------------
 
-# Step 2: Loading the dataset into dataframe
 df = pd.read_csv("intern_performance.csv")
 print("Dataset loaded\n")
 
+# -------------------------------
+# STEP 3: DATA CLEANING
+# -------------------------------
 
-# Step 3: Cleaning the data
+print("\n--- Cleaning Data ---\n")
 
+# Convert date columns
 df['Start_Date'] = pd.to_datetime(df['Start_Date'])
 df['End_Date'] = pd.to_datetime(df['End_Date'])
+
+# Logical consistency
 df['Tasks_Completed'] = np.minimum(df['Tasks_Completed'], df['Tasks_Assigned'])
-# removing duplicate rows if present
+
+# Remove duplicates
 df.drop_duplicates(inplace=True)
-# removing invalid attendance values (>100)
+
+# Filter invalid attendance
 df = df[df['Attendance (%)'] <= 100]
-print("Data cleaning done\n")
 
+print("Basic cleaning done\n")
 
-# Step 4: Checking the data
+# -------------------------------
+# STEP 4: DATA VALIDATION
+# -------------------------------
 
-print("Missing values:\n")
-print(df.isnull().sum())
-# checking data types and info
-print("\nDataset info:\n")
-print(df.info())
+print("\n--- Data Validation ---\n")
 
-# statistical summary (added this — good for understanding data distribution)
+# Missing values check
+print("Missing Values:\n", df.isnull().sum())
+
+# Data types
+print("\nData Types:\n")
+print(df.dtypes)
+
+# Statistical summary
 print("\nStatistical Summary:\n")
 print(df.describe())
 
-# Step 5: Creating new features
+# -------------------------------
+# STEP 5: OUTLIER HANDLING (NEW 🔥)
+# -------------------------------
+
+Q1 = df['Performance_Score'].quantile(0.25)
+Q3 = df['Performance_Score'].quantile(0.75)
+IQR = Q3 - Q1
+
+df = df[(df['Performance_Score'] >= Q1 - 1.5 * IQR) &
+        (df['Performance_Score'] <= Q3 + 1.5 * IQR)]
+
+print("\nOutliers removed based on Performance Score\n")
+
+# -------------------------------
+# STEP 6: FEATURE ENGINEERING
+# -------------------------------
+
+print("\n--- Feature Engineering ---\n")
+
 df['Completion_Rate'] = (df['Tasks_Completed'] / df['Tasks_Assigned']) * 100
 df['Duration_Days'] = (df['End_Date'] - df['Start_Date']).dt.days
-print("\nFeature engineering done\n")
-# Final dataset preview
-print("Final dataset:\n")
-print(df.head())
 
+print("New features created\n")
 
-# saving cleaned dataset (optional but for only good practice)
+# -------------------------------
+# STEP 7: SAVE CLEANED DATA
+# -------------------------------
+
 df.to_csv("cleaned_intern_data.csv", index=False)
-print("\nCleaned dataset saved")
+print("Cleaned dataset saved\n")
 
+# -------------------------------
+# STEP 8: LOAD TO EXCEL (ETL STEP)
+# -------------------------------
 
-# LOAD STEP (Saving to Excel)
-
-# IT RESONATES THE ETL PIPELINES 
-# saving raw data to excel
 pd.read_csv("intern_performance.csv").to_excel("intern_performance.xlsx", index=False)
-
-# saving cleaned data to excel
 df.to_excel("cleaned_intern_data.xlsx", index=False)
 
-print("Data loaded into Excel files successfully")
+print("Data exported to Excel\n")
+
+# -------------------------------
+# FINAL OUTPUT
+# -------------------------------
+
+print("\nFinal dataset preview:\n")
+print(df.head())
+
+print("\nSprint 1 Completed Successfully  🚀\n")
