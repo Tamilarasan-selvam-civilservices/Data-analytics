@@ -1,0 +1,55 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+
+# -------------------------------
+# LOAD DATA
+# -------------------------------
+df = pd.read_csv("cleaned_intern_data.csv")
+
+print("\nDataset Loaded Successfully\n")
+
+# -------------------------------
+# CREATE PLOTS FOLDER
+# -------------------------------
+if not os.path.exists("plots"):
+    os.makedirs("plots")
+
+# -------------------------------
+# STATISTICAL ANALYSIS
+# -------------------------------
+print("\n--- STATISTICAL SUMMARY ---\n")
+print(df.describe())
+
+print("\n--- KEY METRICS ---\n")
+print("Average Performance Score:", df['Performance_Score'].mean())
+print("Average Completion Rate:", df['Completion_Rate'].mean())
+print("Average Attendance:", df['Attendance (%)'].mean())
+
+# -------------------------------
+# DATA VALIDATION (ADVANCED)
+# -------------------------------
+
+print("\n--- MISSING VALUES CHECK ---\n")
+print(df.isnull().sum())
+
+# Outlier detection using IQR
+Q1 = df['Performance_Score'].quantile(0.25)
+Q3 = df['Performance_Score'].quantile(0.75)
+IQR = Q3 - Q1
+
+outliers = df[(df['Performance_Score'] < (Q1 - 1.5 * IQR)) | (df['Performance_Score'] > (Q3 + 1.5 * IQR))]
+print("\nOutliers in Performance Score:", len(outliers))
+
+# -------------------------------
+# TRENDS & PATTERNS
+# -------------------------------
+
+print("\n--- DEPARTMENT ANALYSIS ---\n")
+print(df.groupby('Department')[['Performance_Score','Completion_Rate']].mean())
+
+print("\n--- MENTOR ANALYSIS ---\n")
+print(df.groupby('Mentor')['Performance_Score'].mean())
+
+print("\n--- CORRELATION MATRIX ---\n")
+print(df[['Performance_Score','Hours_Worked','Attendance (%)','Completion_Rate']].corr())
