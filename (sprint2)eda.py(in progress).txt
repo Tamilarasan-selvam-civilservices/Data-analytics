@@ -53,3 +53,35 @@ print(df.groupby('Mentor')['Performance_Score'].mean())
 
 print("\n--- CORRELATION MATRIX ---\n")
 print(df[['Performance_Score','Hours_Worked','Attendance (%)','Completion_Rate']].corr())
+
+# -------------------------------
+# SEGMENTATION ANALYSIS (NEW )
+# -------------------------------
+
+top = df[df['Performance_Score'] > 8]
+low = df[df['Performance_Score'] < 6]
+
+print("\n--- TOP vs LOW PERFORMERS ---\n")
+print("Top Performers Avg Hours:", top['Hours_Worked'].mean())
+print("Low Performers Avg Hours:", low['Hours_Worked'].mean())
+
+print("Top Performers Avg Attendance:", top['Attendance (%)'].mean())
+print("Low Performers Avg Attendance:", low['Attendance (%)'].mean())
+
+# -------------------------------
+# VISUALIZATIONS
+# -------------------------------
+
+# 1. Performance Distribution
+plt.figure()
+df['Performance_Score'].hist()
+plt.title("Performance Score Distribution")
+plt.xlabel("Score")
+plt.ylabel("Frequency")
+plt.savefig("plots/performance_distribution.png")
+plt.close()
+
+# 2. Department-wise Performance
+plt.figure()
+df.groupby('Department')['Performance_Score'].mean().plot(kind='bar')
+plt.title("Average Performanc
