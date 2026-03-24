@@ -84,4 +84,8 @@ plt.close()
 # 2. Department-wise Performance
 plt.figure()
 df.groupby('Department')['Performance_Score'].mean().plot(kind='bar')
-plt.title("Average Performanc
+plt.title("Average Performance by Department")
+plt.xlabel("Department")
+plt.ylabel("Performance Score")
+plt.savefig("plots/department_performance.png")
+plt.close()
