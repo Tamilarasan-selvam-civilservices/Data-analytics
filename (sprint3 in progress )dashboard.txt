@@ -1,0 +1,62 @@
+import streamlit as st
+import pandas as pd
+import os
+import plotly.express as px
+import numpy as np
+
+# -------------------------------
+# PAGE CONFIG
+# -------------------------------
+st.set_page_config(page_title="Elite Intern Dashboard", layout="wide")
+
+# -------------------------------
+# LOAD DATA
+# -------------------------------
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+file_path = os.path.join(BASE_DIR, "data", "cleaned_intern_data_final.csv")
+df = pd.read_csv(file_path)
+
+# -------------------------------
+# ADD FIELDS
+# -------------------------------
+if "Gender" not in df.columns:
+    df["Gender"] = np.random.choice(["Male", "Female"], len(df))
+
+df["Communication_Score"] = df["Feedback_Score"] * 2
+df["Obedience_Score"] = df["Feedback_Score"] * 2
+
+df["Before_Deadline_Completion (%)"] = (
+    df["Deadline_Adherence (%)"] * 0.8 +
+    df["Completion_Rate"] * 0.2
+)
+
+max_duration = df["Duration_Days"].max()
+df["Duration_Efficiency"] = (max_duration - df["Duration_Days"]) / max_duration * 100
+
+df["Priority_Score"] = (
+    df["Completion_Rate"] * 0.25 +
+    df["Attendance (%)"] * 0.15 +
+    df["Quality_Score"] * 0.20 +
+    df["Before_Deadline_Completion (%)"] * 0.15 +
+    df["Projects_Completed"] * 2 +
+    df["Duration_Efficiency"] * 0.10 +
+    df["Obedience_Score"] * 0.05
+)
+
+# -------------------------------
+# IMAGE FUNCTION
+# -------------------------------
+def get_image(gender):
+    return (
+        "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+        if gender == "Female"
+        else "https://cdn-icons-png.flaticon.com/512/4140/4140051.png"
+    )
+
+dept_logo = {
+    "Data Science": "📊",
+    "Marketing": "📢",
+    "HR": "👥",
+    "Finance": "💰",
+    "Operations": "⚙️"
+}
