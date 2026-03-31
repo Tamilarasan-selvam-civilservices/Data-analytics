@@ -130,8 +130,7 @@ EDA helps to:
 # 📊 5.1 Parameter-Level Deep Explanation
 
 ---
-
-## 🔹 1. Completion Rate (%)
+ 🔹 1. Completion Rate (%)
 
 ### ✔ WHAT?
 
@@ -152,7 +151,7 @@ Higher completion → higher productivity
 
 ---
 
-## 🔹 2. Attendance (%)
+🔹 2. Attendance (%)
 
 ### ✔ WHAT?
 
@@ -173,7 +172,7 @@ Higher attendance → consistent contribution
 
 ---
 
-## 🔹 3. Quality Score
+🔹 3. Quality Score
 
 ### ✔ WHAT?
 
@@ -194,7 +193,7 @@ Top performers have high quality
 
 ---
 
-## 🔹 4. Before Deadline Completion (%)
+ 🔹 4. Before Deadline Completion (%)
 
 ### ✔ WHAT?
 
