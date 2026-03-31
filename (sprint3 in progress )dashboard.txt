@@ -60,3 +60,184 @@ dept_logo = {
     "Finance": "💰",
     "Operations": "⚙️"
 }
+
+# -------------------------------
+# PREMIUM CSS (GLOW UI)
+# -------------------------------
+st.markdown("""
+<style>
+
+/* Background */
+body {
+    background: radial-gradient(circle at top, #0f172a, #020617);
+    color: white;
+}
+
+/* KPI Cards */
+.card {
+    background: linear-gradient(145deg, #111827, #1f2937);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,255,200,0.2);
+    transition: 0.4s;
+}
+.card:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 25px rgba(0,255,200,0.6);
+}
+
+/* KPI Text */
+.kpi {
+    font-size: 32px;
+    font-weight: bold;
+    color: #00FFC6;
+}
+
+/* Profile Cards */
+.profile {
+    background: linear-gradient(135deg, #020617, #111827);
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,200,255,0.2);
+    transition: 0.4s;
+}
+.profile:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 0 35px rgba(0,200,255,0.7);
+}
+
+/* Rank Glow */
+.rank {
+    font-size: 22px;
+    font-weight: bold;
+    color: gold;
+    text-shadow: 0px 0px 10px gold;
+}
+
+/* Section spacing */
+.section {
+    margin-top: 40px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# -------------------------------
+# TITLE
+# -------------------------------
+st.title("🚀 Intern Performance Intelligence System")
+
+# -------------------------------
+# FILTERS
+# -------------------------------
+st.sidebar.header("🔍 Filters")
+
+dept = st.sidebar.selectbox("Department", ["All"] + list(df['Department'].unique()))
+mentor = st.sidebar.selectbox("Mentor", ["All"] + list(df['Mentor'].unique()))
+
+filtered_df = df.copy()
+
+if dept != "All":
+    filtered_df = filtered_df[filtered_df['Department'] == dept]
+if mentor != "All":
+    filtered_df = filtered_df[filtered_df['Mentor'] == mentor]
+
+# -------------------------------
+# KPI SECTION
+# -------------------------------
+st.markdown('<div class="section"></div>', unsafe_allow_html=True)
+st.subheader("📊 Core KPIs")
+
+col1, col2, col3 = st.columns(3)
+
+def kpi(col, title, value):
+    col.markdown(f"""
+    <div class="card">
+        <h4>{title}</h4>
+        <div class="kpi">{value}</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+kpi(col1, "Completion Rate", f"{round(filtered_df['Completion_Rate'].mean(),2)}%")
+kpi(col2, "Attendance", f"{round(filtered_df['Attendance (%)'].mean(),2)}%")
+kpi(col3, "Quality Score", round(filtered_df['Quality_Score'].mean(),2))
+
+# -------------------------------
+# INTERACTIVE CHARTS
+# -------------------------------
+st.markdown('<div class="section"></div>', unsafe_allow_html=True)
+st.subheader("📈 Performance Insights")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    fig = px.scatter(
+        filtered_df,
+        x="Completion_Rate",
+        y="Quality_Score",
+        size="Projects_Completed",
+        color="Department",
+        hover_data=["Name","Before_Deadline_Completion (%)","Duration_Efficiency"],
+        title="Completion vs Quality vs Productivity"
+    )
+    fig.update_layout(template="plotly_dark")
+    st.plotly_chart(fig, use_container_width=True)
+
+with col2:
+    fig2 = px.box(
+        filtered_df,
+        x="Department",
+        y="Priority_Score",
+        color="Department",
+        title="Priority Score Distribution"
+    )
+    fig2.update_layout(template="plotly_dark")
+    st.plotly_chart(fig2, use_container_width=True)
+
+# -------------------------------
+# TOP PERFORMERS
+# -------------------------------
+st.markdown('<div class="section"></div>', unsafe_allow_html=True)
+st.subheader("🏆 Department Champions")
+
+for dept_name in filtered_df['Department'].unique():
+
+    st.markdown(f"### {dept_logo.get(dept_name)} {dept_name}")
+
+    dept_df = filtered_df[filtered_df['Department'] == dept_name]
+    top3 = dept_df.sort_values(by='Priority_Score', ascending=False).head(3)
+
+    cols = st.columns(3)
+
+    for i, (_, row) in enumerate(top3.iterrows()):
+        with cols[i]:
+
+            st.image(get_image(row["Gender"]), width=110)
+
+            st.markdown(f"""
+            <div class="profile">
+            <div class="rank">Rank #{i+1}</div>
+            <h3>{row['Name']}</h3>
+
+            <hr>
+
+            📈 Completion: {round(row['Completion_Rate'],2)}% <br>
+            🟢 Attendance: {row['Attendance (%)']}% <br>
+            ⭐ Quality: {row['Quality_Score']} <br>
+            ⏱ Before Deadline: {round(row['Before_Deadline_Completion (%)'],2)}% <br>
+            🚀 Projects: {row['Projects_Completed']} <br>
+            ⚡ Duration Efficiency: {round(row['Duration_Efficiency'],2)}% <br>
+            🤝 Obedience: {round(row['Obedience_Score'],2)} <br>
+
+            <hr>
+            🏆 Priority Score: {round(row['Priority_Score'],2)}
+            </div>
+            """, unsafe_allow_html=True)
+
+# -------------------------------
+# FOOTER
+# -------------------------------
+st.markdown("---")
+st.caption("💎 Enterprise-Level Intern Performance Intelligence Dashboard")
