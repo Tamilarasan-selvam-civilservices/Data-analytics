@@ -214,7 +214,9 @@ Each parameter was selected to represent a **specific dimension of performance**
 
 * WHY: Behavior matters in teams
 * IMPACT: Better collaboration
-* Priority Score – Weight Justification (Business-Level Explanation)
+
+
+7.3 PRIORITY SCORE – Weight Justification (Business-Level Explanation)
 
 The Priority Score is designed to evaluate intern performance using a balanced and realistic corporate approach.
 Each parameter is assigned a weight based on its importance in real-world evaluation systems.
