@@ -214,6 +214,63 @@ Each parameter was selected to represent a **specific dimension of performance**
 
 * WHY: Behavior matters in teams
 * IMPACT: Better collaboration
+* Priority Score – Weight Justification (Business-Level Explanation)
+
+The Priority Score is designed to evaluate intern performance using a balanced and realistic corporate approach.
+Each parameter is assigned a weight based on its importance in real-world evaluation systems.
+
+🔹 Completion Rate (25%)
+Represents actual work done
+Core productivity metric
+
+👉 Highest weight because output matters most
+
+🔹 Attendance (20%)
+Reflects consistency and discipline
+Ensures reliability
+
+👉 Increased weight to prioritize regular contributors
+
+🔹 Quality Score (20%)
+Measures correctness and excellence
+Prevents poor output
+
+👉 Ensures work quality is not compromised
+
+🔹 Before Deadline Completion (15%)
+Measures time discipline
+Shows proactive behavior
+
+👉 Important for fast-paced business environments
+
+🔹 Projects Completed (10%)
+Represents real contribution
+Shows impact
+
+👉 More projects = higher business value
+
+🔹 Duration Efficiency (5%)
+Measures speed of work
+
+👉 Lower weight because speed should not reduce quality
+
+🔹 Obedience Score (5%)
+Reflects communication and discipline
+
+👉 Soft skills matter but are supporting factors
+
+🎯 Final Evaluation Logic
+
+This model balances:
+
+Productivity
+Consistency
+Quality
+Time efficiency
+Contribution
+Behavior
+
+👉 Ensuring a fair and realistic performance evaluation system
 
 ---
 
