@@ -35,14 +35,30 @@ This project introduces a data-driven intern evaluation system that converts raw
 
 ## 🧱 3. Project Architecture
 intern-analytics/
+│
 ├── data/
+│   ├── raw_data.csv
+│   └── cleaned_intern_data_final.csv
+│
 ├── src/
-│ ├── main.py
-│ ├── eda.py
-│ └── dashboard.py
+│   ├── main.py
+│   ├── eda.py
+│   └── dashboard.py
+│
 ├── plots_final/
+│   ├── performance_distribution.png
+│   ├── department_wise_analysis.png
+│   ├── completion_rate_vs_performance.png
+│   ├── quality_vs_performance.png
+│   └── ...
+│
 ├── insights_report.md
-└── README.md
+├── requirements.txt
+├── README.md
+│
+└── assets/
+    ├── architecture_diagram.png
+    └── dashboard_preview.png
 
 ---
 
